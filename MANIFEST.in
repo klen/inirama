@@ -1,2 +1,1 @@
-recursive-include inirama *
 exclude *.pyc *.orig

@@ -3,7 +3,7 @@ Inirama
 
 Inirama -- Simple parser for INI files
 
-.. image:: https://secure.travis-ci.org/klen/inirama.png?branch=develop
+.. image:: https://travis-ci.org/klen/inirama.png?branch=develop
     :target: http://travis-ci.org/klen/inirama
     :alt: Build Status
 
@@ -43,9 +43,9 @@ Interpolation
 -------------
 ::
 
-    from inirama import Namespace
+    from inirama import InterpolationNamespace
 
-    parser = Namespace()
+    parser = InterpolationNamespace()
     parser.parse("""
     [main]
     test = value
