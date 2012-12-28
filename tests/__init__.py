@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from inirama import Namespace
+from inirama import Namespace, InterpolationNamespace
 
 
 class MainTest(TestCase):
@@ -13,22 +13,23 @@ class MainTest(TestCase):
         self.assertTrue(parser['main'])
         self.assertTrue(parser['main']['key'])
         self.assertTrue(parser['main']['additional'])
-        self.assertEqual(parser['default']['defkey'], 'defvalue')
+        self.assertEqual(parser['DEFAULT']['defkey'], 'defvalue')
         self.assertEqual(parser['other']['foo'], 'bar/zeta')
         self.assertEqual(parser['other']['long'], 'long value')
+        self.assertEqual(parser['other']['safe_value'], 'c:\\\\test\\')
+        self.assertEqual(parser['other']['b'], '[test]')
 
         parser['main']['test'] = 123
         self.assertEqual(parser['main']['test'], '123')
 
     def test_interpolation(self):
-        parser = Namespace()
+        parser = InterpolationNamespace()
+        parser.default_section = 'main'
         parser.read('tests/vars.ini')
         self.assertEqual(parser['main']['var_test'], 'Hello world!')
 
         parser['main']['foo'] = 'bar {var_test}'
         self.assertEqual(parser['main']['foo'], 'bar Hello world!')
-
-        self.assertEqual(parser['main'].context, {'foo': 'bar Hello world!', 'test': 'world', 'var_test': 'Hello world!'})
 
         parser['main']['test'] = '{foo}'
         with self.assertRaises(ValueError):
@@ -36,6 +37,7 @@ class MainTest(TestCase):
 
         parser['main']['test'] = 'parse {unknown}done'
         self.assertEqual(parser['main']['test'], 'parse done')
+        self.assertEqual(parser['other']['b'], 'Hello parse done! start')
 
     def test_write(self):
         from tempfile import mkstemp

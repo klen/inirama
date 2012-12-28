@@ -103,53 +103,79 @@ class INIScanner(Scanner):
     ignore = ['IGNORE']
 
     def pre_scan(self):
-        self.source = re.sub(r'\\\n\s*', '', self.source)
+        escape_re = re.compile(r'\\\n[\t ]+')
+        self.source = escape_re.sub('', self.source)
 
 
 undefined = object()
-var_re = re.compile('{([^}]+)}')
 
 
 class Section(dict):
 
     @property
     def context(self):
-        return dict(iter(self))
+        return self
+
+    def __init__(self, namespace, *args, **kwargs):
+        super(Section, self).__init__(*args, **kwargs)
+        self.namespace = namespace
 
     def __setitem__(self, name, value):
         super(Section, self).__setitem__(name, str(value))
-
-    def __interpolate__(self, math):
-        try:
-            return self[math.group(1)]
-        except KeyError:
-            return ''
-
-    def __getitem__(self, name):
-        value = super(Section, self).__getitem__(name)
-        sample = undefined
-        while sample != value:
-            try:
-                sample, value = value, var_re.sub(self.__interpolate__, value)
-            except RuntimeError:
-                raise ValueError("Interpolation failed: {0}".format(name))
-        return value
 
     def __iter__(self):
         for key in super(Section, self).keys():
             yield key, self[key]
 
 
-class Namespace:
+class InterpolationSection(Section):
 
-    default_section = 'default'
+    var_re = re.compile('{([^}]+)}')
+
+    @property
+    def context(self):
+        return dict(iter(self))
+
+    def get(self, name, default=None):
+        if name in self:
+            return self[name]
+        return default
+
+    def __interpolate__(self, math):
+        try:
+            # return self[math.group(1)]
+            key = math.group(1)
+            return self.namespace.default.get(key) or self[key]
+        except KeyError:
+            return ''
+
+    def __getitem__(self, name):
+        value = super(InterpolationSection, self).__getitem__(name)
+        sample = undefined
+        while sample != value:
+            try:
+                sample, value = value, self.var_re.sub(self.__interpolate__, value)
+            except RuntimeError:
+                raise ValueError("Interpolation failed: {0}".format(name))
+        return value
+
+
+class Namespace(object):
+
+    default_section = 'DEFAULT'
     silent_read = True
     section_type = Section
 
     def __init__(self, **default_items):
         self.sections = OrderedDict()
         if default_items:
-            self[self.default_section] = self.section_type(**default_items)
+            self[self.default_section] = self.section_type(self, **default_items)
+
+    @property
+    def default(self):
+        """ Return default section or empty dict.
+        """
+        return self.sections.get(self.default_section, dict())
 
     def read(self, *files):
         """ Read and parse INI files.
@@ -163,6 +189,11 @@ class Namespace:
                     raise
 
     def write(self, f):
+        """
+            Write self as INI file.
+
+            :param f: File object or path to file.
+        """
         if isinstance(f, str):
             f = io.open(f, 'w', encoding='utf-8')
 
@@ -196,8 +227,13 @@ class Namespace:
         """ Look name in self sections.
         """
         if not name in self.sections:
-            self.sections[name] = self.section_type()
+            self.sections[name] = self.section_type(self)
         return self.sections[name]
 
     def __repr__(self):
         return "<Namespace: {0}>".format(self.sections)
+
+
+class InterpolationNamespace(Namespace):
+
+    section_type = InterpolationSection
