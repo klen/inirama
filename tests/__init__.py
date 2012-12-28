@@ -31,7 +31,7 @@ class MainTest(TestCase):
         self.assertEqual(parser['main'].context, {'foo': 'bar Hello world!', 'test': 'world', 'var_test': 'Hello world!'})
 
         parser['main']['test'] = '{foo}'
-        with self.assertRaises(ValueError):
+        with self.assertRaises(KeyError):
             self.assertEqual(parser['main']['foo'], 'bar Hello world!')
 
     def test_write(self):

@@ -2,15 +2,18 @@
     Parse INI files.
 
 """
+from __future__ import unicode_literals
+
+import re
+
+import io
+from collections import OrderedDict
+
 
 __version__ = '0.1.0'
 __project__ = 'Inirama'
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
-
-
-import re
-from collections import OrderedDict
 
 
 class Scanner(object):
@@ -123,8 +126,9 @@ class Section(dict):
         cnt = 0
         while sample != value:
             if cnt > self.depth:
-                raise ValueError("Reached maximum depth of interpretation by key: {0}".format(name))
+                raise KeyError("Reached maximum depth of interpretation by key: {0}".format(name))
             sample, value, cnt = value, value.format(**self), cnt + 1
+
         return value
 
     def __iter__(self):
@@ -148,17 +152,17 @@ class Namespace:
         """
         for f in files:
             try:
-                with open(f, 'r') as ff:
+                with io.open(f, encoding='utf-8') as ff:
                     self.parse(ff.read())
-            except (IOError, TypeError, SyntaxError):
+            except (IOError, TypeError, SyntaxError, io.UnsupportedOperation):
                 if not self.silent_read:
                     raise
 
     def write(self, f):
         if isinstance(f, str):
-            f = open(f, 'w')
+            f = io.open(f, 'w', encoding='utf-8')
 
-        if not isinstance(f, file):
+        if not hasattr(f, 'read'):
             raise AttributeError("Wrong type of file: {0}".format(type(f)))
 
         for section in self.sections.keys():
