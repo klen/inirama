@@ -43,9 +43,9 @@ Interpolation
 -------------
 ::
 
-    from inirama import Namespace
+    from inirama import InterpolationNamespace
 
-    parser = Namespace()
+    parser = InterpolationNamespace()
     parser.parse("""
     [main]
     test = value
