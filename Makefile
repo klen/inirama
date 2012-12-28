@@ -1,4 +1,4 @@
-MODULE=inirama
+MODULE=inirama.py
 SPHINXBUILD=sphinx-build
 ALLSPHINXOPTS= -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 BUILDDIR=_build
@@ -51,3 +51,6 @@ pep8:
 .env: requirements.txt
 	virtualenv --no-site-packages .env
 	.env/bin/pip install -M -r requirements.txt
+
+.PHONY: travis
+travis: audit test
