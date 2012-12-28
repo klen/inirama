@@ -20,7 +20,7 @@ class MainTest(TestCase):
         parser['main']['test'] = 123
         self.assertEqual(parser['main']['test'], '123')
 
-    def test_evalate(self):
+    def test_interpolation(self):
         parser = Namespace()
         parser.read('tests/vars.ini')
         self.assertEqual(parser['main']['var_test'], 'Hello world!')
@@ -31,8 +31,11 @@ class MainTest(TestCase):
         self.assertEqual(parser['main'].context, {'foo': 'bar Hello world!', 'test': 'world', 'var_test': 'Hello world!'})
 
         parser['main']['test'] = '{foo}'
-        with self.assertRaises(KeyError):
+        with self.assertRaises(ValueError):
             self.assertEqual(parser['main']['foo'], 'bar Hello world!')
+
+        parser['main']['test'] = 'parse {unknown}done'
+        self.assertEqual(parser['main']['test'], 'parse done')
 
     def test_write(self):
         from tempfile import mkstemp

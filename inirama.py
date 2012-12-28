@@ -2,7 +2,7 @@
     Parse INI files.
 
 """
-from __future__ import unicode_literals
+from __future__ import unicode_literals, print_function
 
 import re
 
@@ -10,7 +10,7 @@ import io
 from collections import OrderedDict
 
 
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 __project__ = 'Inirama'
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
@@ -107,11 +107,10 @@ class INIScanner(Scanner):
 
 
 undefined = object()
+var_re = re.compile('{([^}]+)}')
 
 
 class Section(dict):
-
-    depth = 10
 
     @property
     def context(self):
@@ -120,15 +119,20 @@ class Section(dict):
     def __setitem__(self, name, value):
         super(Section, self).__setitem__(name, str(value))
 
+    def __interpolate__(self, math):
+        try:
+            return self[math.group(1)]
+        except KeyError:
+            return ''
+
     def __getitem__(self, name):
         value = super(Section, self).__getitem__(name)
         sample = undefined
-        cnt = 0
         while sample != value:
-            if cnt > self.depth:
-                raise KeyError("Reached maximum depth of interpretation by key: {0}".format(name))
-            sample, value, cnt = value, value.format(**self), cnt + 1
-
+            try:
+                sample, value = value, var_re.sub(self.__interpolate__, value)
+            except RuntimeError:
+                raise ValueError("Interpolation failed: {0}".format(name))
         return value
 
     def __iter__(self):
@@ -194,3 +198,6 @@ class Namespace:
         if not name in self.sections:
             self.sections[name] = self.section_type()
         return self.sections[name]
+
+    def __repr__(self):
+        return "<Namespace: {0}>".format(self.sections)
