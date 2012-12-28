@@ -181,7 +181,7 @@ class Namespace:
                 name, value = re.split('[=:]', token[1], 1)
                 self[section][name.strip()] = value.strip()
 
-            if token[0] == 'SECTION':
+            elif token[0] == 'SECTION':
                 section = token[1].strip('[]')
 
     def __getitem__(self, name):
