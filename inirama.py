@@ -10,7 +10,7 @@ import io
 from collections import OrderedDict
 
 
-__version__ = '0.2.2'
+__version__ = '0.2.3'
 __project__ = 'Inirama'
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
@@ -168,8 +168,8 @@ class Namespace(object):
 
     def __init__(self, **default_items):
         self.sections = OrderedDict()
-        if default_items:
-            self[self.default_section] = self.section_type(self, **default_items)
+        for k, v in default_items.items():
+            self[self.default_section][k] = v
 
     @property
     def default(self):
