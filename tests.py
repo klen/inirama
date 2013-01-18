@@ -6,13 +6,14 @@ from inirama import Namespace, InterpolationNamespace
 class MainTest(TestCase):
 
     def test_parse(self):
-        parser = Namespace()
+        parser = Namespace(prekey='prevalue')
         parser.read('test.ini')
         parser.read('tests/test.ini', 'tests/invalid.ini', 'tests/append.ini')
 
         self.assertTrue(parser['main'])
         self.assertTrue(parser['main']['key'])
         self.assertTrue(parser['main']['additional'])
+        self.assertEqual(parser['DEFAULT']['prekey'], 'prevalue')
         self.assertEqual(parser['DEFAULT']['defkey'], 'defvalue')
         self.assertEqual(parser['other']['foo'], 'bar/zeta')
         self.assertEqual(parser['other']['long'], 'long value')
