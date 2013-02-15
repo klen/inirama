@@ -2,13 +2,14 @@
     Parse INI files.
 
 """
+from __future__ import unicode_literals, print_function
+
 import io
 import re
-from __future__ import unicode_literals, print_function
 from collections import OrderedDict, MutableMapping
 
 
-__version__ = '0.2.3'
+__version__ = '0.2.4'
 __project__ = 'Inirama'
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
