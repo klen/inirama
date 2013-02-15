@@ -4,13 +4,12 @@
 """
 from __future__ import unicode_literals, print_function
 
-import re
-
 import io
-from collections import OrderedDict
+import re
+from collections import OrderedDict, MutableMapping
 
 
-__version__ = '0.2.3'
+__version__ = '0.2.4'
 __project__ = 'Inirama'
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
@@ -110,31 +109,38 @@ class INIScanner(Scanner):
 undefined = object()
 
 
-class Section(dict):
-
-    @property
-    def context(self):
-        return self
+class Section(MutableMapping):
 
     def __init__(self, namespace, *args, **kwargs):
         super(Section, self).__init__(*args, **kwargs)
         self.namespace = namespace
+        self.__storage__ = dict()
 
     def __setitem__(self, name, value):
-        super(Section, self).__setitem__(name, str(value))
+        self.__storage__[name] = str(value)
+
+    def __getitem__(self, name):
+        return self.__storage__[name]
+
+    def __delitem__(self, name):
+        del self.__storage__[name]
+
+    def __len__(self):
+        return len(self.__storage__)
 
     def __iter__(self):
-        for key in super(Section, self).keys():
+        return iter(self.__storage__)
+
+    def iteritems(self):
+        for key in self.__storage__.keys():
             yield key, self[key]
+
+    items = lambda s: list(s.iteritems())
 
 
 class InterpolationSection(Section):
 
     var_re = re.compile('{([^}]+)}')
-
-    @property
-    def context(self):
-        return dict(iter(self))
 
     def get(self, name, default=None):
         if name in self:
@@ -202,7 +208,7 @@ class Namespace(object):
 
         for section in self.sections.keys():
             f.write('[{0}]\n'.format(section))
-            for k, v in iter(self[section]):
+            for k, v in self[section].items():
                 f.write('{0:15}= {1}\n'.format(k, v))
             f.write('\n')
         f.close()
