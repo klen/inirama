@@ -40,6 +40,9 @@ class MainTest(TestCase):
         self.assertEqual(parser['main']['test'], 'parse done')
         self.assertEqual(parser['other']['b'], 'Hello parse done! start')
 
+        test = dict(parser.default)
+        self.assertTrue('parse' in test['foo'])
+
     def test_write(self):
         from tempfile import mkstemp
 
