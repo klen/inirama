@@ -1,6 +1,7 @@
 2013-02-16  klen
 
-	* Version 0.2.5
+	* Version 0.2.6
+	* Parser could read files in `update` mode
 
 2013-02-15  klen
 
