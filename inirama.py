@@ -9,7 +9,7 @@ import re
 from collections import OrderedDict, MutableMapping
 
 
-__version__ = '0.2.4'
+__version__ = '0.2.5'
 __project__ = 'Inirama'
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
@@ -89,7 +89,7 @@ class Scanner(object):
     def __repr__(self):
         """ Print the last 5 tokens that have been scanned in
         """
-        return 'Scanner: ' + ','.join("{0}({2}:{3})".format(*t) for t in self.tokens[-5:])
+        return '<Scanner: ' + ','.join("{0}({2}:{3})".format(*t) for t in self.tokens[-5:]) + ">"
 
 
 class INIScanner(Scanner):
@@ -130,6 +130,9 @@ class Section(MutableMapping):
 
     def __iter__(self):
         return iter(self.__storage__)
+
+    def __repr__(self):
+        return "<{0} {1}>".format(self.__class__.__name__, str(dict(self)))
 
     def iteritems(self):
         for key in self.__storage__.keys():
