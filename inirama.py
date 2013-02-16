@@ -9,7 +9,7 @@ import re
 from collections import OrderedDict, MutableMapping
 
 
-__version__ = '0.2.5'
+__version__ = '0.2.6'
 __project__ = 'Inirama'
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
@@ -186,13 +186,13 @@ class Namespace(object):
         """
         return self.sections.get(self.default_section, dict())
 
-    def read(self, *files):
+    def read(self, *files, **params):
         """ Read and parse INI files.
         """
         for f in files:
             try:
                 with io.open(f, encoding='utf-8') as ff:
-                    self.parse(ff.read())
+                    self.parse(ff.read(), **params)
             except (IOError, TypeError, SyntaxError, io.UnsupportedOperation):
                 if not self.silent_read:
                     raise
@@ -216,7 +216,7 @@ class Namespace(object):
             f.write('\n')
         f.close()
 
-    def parse(self, source):
+    def parse(self, source, update=True, **params):
         """ Parse INI source.
         """
         scanner = INIScanner(source)
@@ -227,7 +227,10 @@ class Namespace(object):
         for token in scanner.tokens:
             if token[0] == 'KEY':
                 name, value = re.split('[=:]', token[1], 1)
-                self[section][name.strip()] = value.strip()
+                name, value = name.strip(), value.strip()
+                if not update and name in self[section]:
+                    continue
+                self[section][name] = value
 
             elif token[0] == 'SECTION':
                 section = token[1].strip('[]')
