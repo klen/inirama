@@ -55,3 +55,12 @@ class MainTest(TestCase):
         with open(target) as f:
             source = f.read()
             self.assertTrue('[main]' in source)
+
+    def test_default(self):
+        parser = Namespace()
+        parser.default_section = 'main'
+        parser.read('tests/test.ini')
+        parser.read('tests/default.ini', update=False)
+
+        self.assertEqual(parser['main']['key'], 'value')
+        self.assertEqual(parser['main']['newkey'], 'default')
