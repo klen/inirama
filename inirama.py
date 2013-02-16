@@ -9,7 +9,7 @@ import re
 from collections import OrderedDict, MutableMapping
 
 
-__version__ = '0.2.4'
+__version__ = '0.2.5'
 __project__ = 'Inirama'
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
