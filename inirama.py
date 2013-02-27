@@ -6,13 +6,17 @@ from __future__ import unicode_literals, print_function
 
 import io
 import re
+import logging
 from collections import OrderedDict, MutableMapping
 
 
-__version__ = '0.2.6'
+__version__ = '0.2.7'
 __project__ = 'Inirama'
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
+
+
+NS_LOGGER = logging.getLogger('inirama')
 
 
 class Scanner(object):
@@ -165,7 +169,9 @@ class InterpolationSection(Section):
             try:
                 sample, value = value, self.var_re.sub(self.__interpolate__, value)
             except RuntimeError:
-                raise ValueError("Interpolation failed: {0}".format(name))
+                message = "Interpolation failed: {0}".format(name)
+                NS_LOGGER.error(message)
+                raise ValueError(message)
         return value
 
 
@@ -192,9 +198,11 @@ class Namespace(object):
         for f in files:
             try:
                 with io.open(f, encoding='utf-8') as ff:
+                    NS_LOGGER.info('Read from `{0}`'.format(ff.name))
                     self.parse(ff.read(), **params)
             except (IOError, TypeError, SyntaxError, io.UnsupportedOperation):
                 if not self.silent_read:
+                    NS_LOGGER.error('Reading error `{0}`'.format(ff.name))
                     raise
 
     def write(self, f):
@@ -209,6 +217,7 @@ class Namespace(object):
         if not hasattr(f, 'read'):
             raise AttributeError("Wrong type of file: {0}".format(type(f)))
 
+        NS_LOGGER.info('Write to `{0}`'.format(f.name))
         for section in self.sections.keys():
             f.write('[{0}]\n'.format(section))
             for k, v in self[section].items():

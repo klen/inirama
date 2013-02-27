@@ -1,10 +1,11 @@
-_build
-dist
 *.egg*
+*.pyc
+.DS_Store
 .env
 .env3
-*.pyc
 .ropeproject
 .tags
 .tox
 .vimrc
+_build
+dist
