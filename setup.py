@@ -11,8 +11,6 @@ import os
 
 from setuptools import setup
 
-from inirama import __version__, __project__, __license__
-
 
 def read(fname):
     try:
@@ -22,9 +20,9 @@ def read(fname):
 
 
 setup(
-    name=__project__,
-    version=__version__,
-    license=__license__,
+    name="Inirama",
+    version="0.2.6",
+    license="BSD",
     description=read('DESCRIPTION'),
     long_description=read('README.rst'),
     platforms=('Any'),
