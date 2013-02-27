@@ -10,7 +10,7 @@ import logging
 from collections import OrderedDict, MutableMapping
 
 
-__version__ = '0.2.6'
+__version__ = '0.2.7'
 __project__ = 'Inirama'
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
