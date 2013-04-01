@@ -1,9 +1,10 @@
+VIRTUALENV=$(shell echo "$${VDIR:-'.env'}")
 MODULE=inirama.py
 SPHINXBUILD=sphinx-build
 ALLSPHINXOPTS= -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 BUILDDIR=_build
 
-all: .env
+all: $(VIRTUALENV)
 
 .PHONY: help
 # target: help - Display callable targets
@@ -48,9 +49,9 @@ docs:
 pep8:
 	find $(MODULE) -name "*.py" | xargs -n 1 autopep8 -i
 
-.env: requirements.txt
-	virtualenv --no-site-packages .env
-	.env/bin/pip install -M -r requirements.txt
+$(VIRTUALENV): requirements.txt
+	virtualenv --no-site-packages $(VIRTUALENV)
+	$(VIRTUALENV)/bin/pip install -M -r requirements.txt
 
 .PHONY: travis
 travis: audit test
