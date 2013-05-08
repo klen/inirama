@@ -51,6 +51,3 @@ pep8:
 .env: requirements.txt
 	virtualenv --no-site-packages .env
 	.env/bin/pip install -M -r requirements.txt
-
-.PHONY: travis
-travis: audit t
