@@ -1,7 +1,7 @@
 Inirama
 #######
 
-Inirama -- Simple parser for INI files
+Inirama -- Simplest parser for INI files. Interpolation supported.
 
 .. image:: https://travis-ci.org/klen/inirama.png?branch=develop
     :target: http://travis-ci.org/klen/inirama
