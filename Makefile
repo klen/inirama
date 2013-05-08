@@ -29,9 +29,9 @@ register:
 upload:
 	@python setup.py sdist upload || echo 'Upload already'
 
-.PHONY: test
-# target: test - Runs tests
-test: clean
+.PHONY: t
+# target: t - Runs tests
+t: clean
 	@python setup.py test
 
 .PHONY: audit
@@ -53,4 +53,4 @@ pep8:
 	.env/bin/pip install -M -r requirements.txt
 
 .PHONY: travis
-travis: audit test
+travis: audit t

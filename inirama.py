@@ -10,7 +10,7 @@ import logging
 from collections import OrderedDict, MutableMapping
 
 
-__version__ = '0.2.7'
+__version__ = '0.2.8'
 __project__ = 'Inirama'
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
@@ -67,7 +67,9 @@ class Scanner(object):
                     break
 
             if best_pat is None:
-                raise SyntaxError("SyntaxError[@char {0}: {1}]".format(self.pos, "Bad token."))
+                raise SyntaxError(
+                    "SyntaxError[@char {0}: {1}]".format(
+                        self.pos, "Bad token."))
 
             # Ignore patterns
             if best_pat in self.ignore:
@@ -93,7 +95,8 @@ class Scanner(object):
     def __repr__(self):
         """ Print the last 5 tokens that have been scanned in
         """
-        return '<Scanner: ' + ','.join("{0}({2}:{3})".format(*t) for t in self.tokens[-5:]) + ">"
+        return '<Scanner: ' + ','.join(
+            "{0}({2}:{3})".format(*t) for t in self.tokens[-5:]) + ">"
 
 
 class INIScanner(Scanner):
@@ -156,8 +159,7 @@ class InterpolationSection(Section):
 
     def __interpolate__(self, math):
         try:
-            # return self[math.group(1)]
-            key = math.group(1)
+            key = math.group(1).strip()
             return self.namespace.default.get(key) or self[key]
         except KeyError:
             return ''
@@ -167,7 +169,8 @@ class InterpolationSection(Section):
         sample = undefined
         while sample != value:
             try:
-                sample, value = value, self.var_re.sub(self.__interpolate__, value)
+                sample, value = value, self.var_re.sub(
+                    self.__interpolate__, value)
             except RuntimeError:
                 message = "Interpolation failed: {0}".format(name)
                 NS_LOGGER.error(message)
@@ -258,3 +261,5 @@ class Namespace(object):
 class InterpolationNamespace(Namespace):
 
     section_type = InterpolationSection
+
+# lint_ignore=W0201,R0924

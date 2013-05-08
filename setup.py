@@ -21,7 +21,7 @@ def read(fname):
 
 setup(
     name="Inirama",
-    version="0.2.7",
+    version="0.2.8",
     license="BSD",
     description=read('DESCRIPTION'),
     long_description=read('README.rst'),
@@ -34,8 +34,9 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
-        'Programming Language :: Python',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python',
+        'Topic :: Software Development :: Libraries',
     ],
 
     py_modules=['inirama'],
