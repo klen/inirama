@@ -34,8 +34,9 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
-        'Programming Language :: Python',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python',
+        'Topic :: Software Development :: Libraries',
     ],
 
     py_modules=['inirama'],
