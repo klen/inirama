@@ -26,6 +26,7 @@ setup(
     description=read('DESCRIPTION'),
     long_description=read('README.rst'),
     platforms=('Any'),
+    keywords="config parser ini",
 
     author='Kirill Klenov',
     author_email='horneds@gmail.com',
@@ -34,8 +35,9 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
         'Topic :: Software Development :: Libraries',
     ],
 

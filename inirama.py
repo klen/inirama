@@ -101,7 +101,7 @@ class Scanner(object):
 
 class INIScanner(Scanner):
     patterns = [
-        ('SECTION', re.compile(r'\[\w+\]')),
+        ('SECTION', re.compile(r'\[[^]]+\]')),
         ('IGNORE', re.compile(r'[ \r\t\n]+')),
         ('COMMENT', re.compile(r'[;#].*')),
         ('KEY', re.compile(r'[\w_]+\s*[:=].*'))]
