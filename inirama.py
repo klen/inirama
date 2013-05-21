@@ -10,7 +10,7 @@ import logging
 from collections import OrderedDict, MutableMapping
 
 
-__version__ = '0.2.8'
+__version__ = '0.2.9'
 __project__ = 'Inirama'
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
@@ -101,7 +101,7 @@ class Scanner(object):
 
 class INIScanner(Scanner):
     patterns = [
-        ('SECTION', re.compile(r'\[\w+\]')),
+        ('SECTION', re.compile(r'\[[^]]+\]')),
         ('IGNORE', re.compile(r'[ \r\t\n]+')),
         ('COMMENT', re.compile(r'[;#].*')),
         ('KEY', re.compile(r'[\w_]+\s*[:=].*'))]
