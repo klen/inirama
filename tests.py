@@ -1,4 +1,5 @@
 from unittest import TestCase
+from sys import version_info
 
 from inirama import Namespace, InterpolationNamespace
 
@@ -36,8 +37,9 @@ class MainTest(TestCase):
         self.assertEqual(parser['main']['foo'], 'bar Hello world!')
 
         parser['main']['test'] = '{foo}'
-        with self.assertRaises(ValueError):
-            self.assertEqual(parser['main']['foo'], 'bar Hello world!')
+        if version_info >= (2, 7):
+            with self.assertRaises(ValueError):
+                self.assertEqual(parser['main']['foo'], 'bar Hello world!')
 
         parser['main']['test'] = 'parse {unknown}done'
         self.assertEqual(parser['main']['test'], 'parse done')
