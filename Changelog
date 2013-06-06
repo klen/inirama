@@ -1,8 +1,9 @@
 2013-06-06  horneds
 
-	* Version 0.3.0
-	* Add docs
-	* Code coverage
+	* Version 0.4.0
+	* Add docs;
+	* Code coverage;
+	* Added python 2.6 support;
 
 2013-05-21  horneds
 

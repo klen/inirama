@@ -13,7 +13,11 @@ from __future__ import unicode_literals, print_function
 import io
 import re
 import logging
-from collections import OrderedDict, MutableMapping
+from collections import MutableMapping
+try:
+    from collections import OrderedDict
+except ImportError:
+    from ordereddict import OrderedDict
 
 
 __version__ = '0.3.0'

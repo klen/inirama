@@ -8,6 +8,7 @@ inirama -- Parse INI files
 
 """
 import os
+from sys import version_info
 
 from setuptools import setup
 
@@ -17,6 +18,11 @@ def read(fname):
         return open(os.path.join(os.path.dirname(__file__), fname)).read()
     except IOError:
         return ''
+
+
+install_requires = read('requirements.txt').split()
+if version_info < (2, 7):
+    install_requires.append('ordereddict')
 
 
 setup(
@@ -41,7 +47,7 @@ setup(
         'Topic :: Software Development :: Libraries',
     ],
 
+    install_requires=install_requires,
     py_modules=['inirama'],
-    install_requires = read('requirements.txt').split(),
     test_suite = 'tests',
 )

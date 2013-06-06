@@ -37,7 +37,7 @@ Docs are available at https://inirama.readthedocs.org/. Pull requests with docum
 Requirements
 =============
 
-- python (2.7, 3.2, 3.3)
+- python (2.6, 2.7, 3.2, 3.3)
 
 
 Installation
