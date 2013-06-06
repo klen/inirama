@@ -1,18 +1,43 @@
-Inirama
-#######
+|logo| Inirama
+##############
 
-Inirama -- Simplest parser for INI files. Interpolation supported.
+Inirama -- Simplest parser for INI files.
+
+Features:
+
+    - One single file;
+    - Tiny interface;
+    - Interpolation support;
+    - No dependencies from python modules;
 
 .. image:: https://travis-ci.org/klen/inirama.png?branch=develop
     :target: http://travis-ci.org/klen/inirama
     :alt: Build Status
 
-.. contents::
+.. image:: https://coveralls.io/repos/klen/inirama/badge.png?branch=develop
+    :target: https://coveralls.io/r/klen/inirama
+    :alt: Coverals
+
+.. image:: https://pypip.in/v/Inirama/badge.png
+    :target: https://crate.io/packages/Inirama
+    :alt: Version
+
+.. image:: https://pypip.in/d/Inirama/badge.png
+    :target: https://crate.io/packages/Inirama
+    :alt: Downloads
+
+.. image:: https://dl.dropboxusercontent.com/u/487440/reformal/donate.png
+    :target: https://www.gittip.com/klen/
+    :alt: Donate
+
+Docs are available at https://inirama.readthedocs.org/. Pull requests with documentation enhancements and/or fixes are awesome and most welcome.
+
+.. contents:: Contents:
 
 Requirements
 =============
 
-- python 2.7, 3.2
+- python (2.7, 3.2, 3.3)
 
 
 Installation
@@ -23,20 +48,20 @@ Installation
     pip install inirama
 
 
-Usage
-=====
+Quickstart
+==========
 
 ::
 
     from inirama import Namespace
 
-    parser = Namespace()
-    parser.read('config.ini')
+    ns = Namespace()
+    ns.read('config.ini')
 
-    print Parser['section']['key']
+    print ns['section']['key']
 
-    parser['other']['new'] = 'value'
-    parser.write('new_config.ini')
+    ns['other']['new'] = 'value'
+    ns.write('new_config.ini')
 
 
 Interpolation
@@ -45,14 +70,14 @@ Interpolation
 
     from inirama import InterpolationNamespace
 
-    parser = InterpolationNamespace()
-    parser.parse("""
-    [main]
-    test = value
-    foo = bar {test}
-    more_deep = wow {foo}
+    ns = InterpolationNamespace()
+    ns.parse("""
+        [main]
+        test = value
+        foo = bar {test}
+        more_deep = wow {foo}
     """)
-    print parser['main']['more_deep']  # wow bar value
+    print ns['main']['more_deep']  # wow bar value
 
 
 Bug tracker
@@ -83,3 +108,5 @@ Licensed under a `BSD license`_.
 
 .. _BSD license: http://www.linfo.org/bsdlicense.html
 .. _klen: http://klen.github.com/
+.. |logo| image:: https://raw.github.com/klen/inirama/develop/docs/_static/logo.png
+                  :width: 100
