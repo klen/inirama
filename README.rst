@@ -26,9 +26,13 @@ Features:
     :target: https://crate.io/packages/Inirama
     :alt: Downloads
 
+.. image:: https://dl.dropboxusercontent.com/u/487440/reformal/donate.png
+    :target: https://www.gittip.com/klen/
+    :alt: Donate
+
 Docs are available at https://inirama.readthedocs.org/. Pull requests with documentation enhancements and/or fixes are awesome and most welcome.
 
-.. contents::
+.. contents:: Contents:
 
 Requirements
 =============
@@ -44,8 +48,8 @@ Installation
     pip install inirama
 
 
-Usage
-=====
+Quickstart
+==========
 
 ::
 
