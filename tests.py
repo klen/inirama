@@ -20,6 +20,9 @@ class MainTest(TestCase):
         self.assertEqual(parser['other']['safe_value'], 'c:\\\\test\\')
         self.assertEqual(parser['other']['b'], '[test]')
 
+        self.assertTrue('other' in parser)
+        self.assertFalse('another' in parser)
+
         parser['main']['test'] = 123
         self.assertEqual(parser['main']['test'], '123')
 
