@@ -18,12 +18,12 @@ Features:
     :target: https://coveralls.io/r/klen/inirama
     :alt: Coverals
 
-.. image:: https://pypip.in/v/inirama/badge.png
-    :target: https://crate.io/packages/inirama
+.. image:: https://pypip.in/v/Inirama/badge.png
+    :target: https://crate.io/packages/Inirama
     :alt: Version
 
-.. image:: https://pypip.in/d/inirama/badge.png
-    :target: https://crate.io/packages/inirama
+.. image:: https://pypip.in/d/Inirama/badge.png
+    :target: https://crate.io/packages/Inirama
     :alt: Downloads
 
 Docs are available at https://inirama.readthedocs.org/. Pull requests with documentation enhancements and/or fixes are awesome and most welcome.
@@ -33,7 +33,7 @@ Docs are available at https://inirama.readthedocs.org/. Pull requests with docum
 Requirements
 =============
 
-- python (2.6, 2.7, 3.2, 3.3)
+- python (2.7, 3.2, 3.3)
 
 
 Installation
