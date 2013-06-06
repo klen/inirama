@@ -20,7 +20,7 @@ except ImportError:
     from ordereddict import OrderedDict
 
 
-__version__ = '0.3.0'
+__version__ = '0.4.0'
 __project__ = 'Inirama'
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"

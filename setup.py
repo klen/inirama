@@ -27,7 +27,7 @@ if version_info < (2, 7):
 
 setup(
     name="Inirama",
-    version="0.3.0",
+    version="0.4.0",
     license="BSD",
     description=read('DESCRIPTION'),
     long_description=read('README.rst'),
