@@ -2,6 +2,8 @@
 
 .. contents::
 
+.. == quickstart ==
+.. _quickstart:
 .. include:: ../README.rst
-    :start-line: 50
-    :end-line: 82
+    :start-after: .. _quickstart:
+    :end-before: .. _interpolation:

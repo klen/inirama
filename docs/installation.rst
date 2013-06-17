@@ -2,6 +2,15 @@
 
 .. contents::
 
+.. == requirements ==
+.. _requirements:
 .. include:: ../README.rst
-    :start-line: 36
-    :end-line: 50
+    :start-after: .. _requirements:
+    :end-before: .. _installation:
+
+
+.. == installation ==
+.. _installation:
+.. include:: ../README.rst
+    :start-after: .. _installation:
+    :end-before: .. _quickstart:

@@ -1,7 +1,10 @@
 |logo| Inirama
 ##############
 
-Inirama -- Simplest parser for INI files.
+.. _description:
+
+Inirama -- Simplest parser for INI files. Useful for project integration, one file
+and interface is pretty nice.
 
 Features:
 
@@ -9,6 +12,8 @@ Features:
     - Tiny interface;
     - Interpolation support;
     - No dependencies from python modules;
+
+.. _badges:
 
 .. image:: https://travis-ci.org/klen/inirama.png?branch=develop
     :target: http://travis-ci.org/klen/inirama
@@ -30,15 +35,24 @@ Features:
     :target: https://www.gittip.com/klen/
     :alt: Donate
 
+
+.. _contents:
+
 Docs are available at https://inirama.readthedocs.org/. Pull requests with documentation enhancements and/or fixes are awesome and most welcome.
 
+
 .. contents:: Contents:
+
+
+.. _requirements:
 
 Requirements
 =============
 
 - python (2.6, 2.7, 3.2, 3.3)
 
+
+.. _installation:
 
 Installation
 =============
@@ -47,6 +61,8 @@ Installation
 
     pip install inirama
 
+
+.. _quickstart:
 
 Quickstart
 ==========
@@ -64,6 +80,8 @@ Quickstart
     ns.write('new_config.ini')
 
 
+.. _interpolation:
+
 Interpolation
 -------------
 ::
@@ -80,6 +98,8 @@ Interpolation
     print ns['main']['more_deep']  # wow bar value
 
 
+.. _bagtracker:
+
 Bug tracker
 ===========
 
@@ -88,11 +108,15 @@ annoyances please report them to the issue tracker
 at https://github.com/klen/inirama/issues
 
 
+.. _contributing:
+
 Contributing
 ============
 
 Development of inirama happens at github: https://github.com/klen/inirama
 
+
+.. _contributors:
 
 Contributors
 =============
@@ -100,11 +124,15 @@ Contributors
 * klen_ (Kirill Klenov)
 
 
+.. _license:
+
 License
 =======
 
 Licensed under a `BSD license`_.
 
+
+.. _links:
 
 .. _BSD license: http://www.linfo.org/bsdlicense.html
 .. _klen: http://klen.github.com/
