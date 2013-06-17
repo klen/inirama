@@ -1,7 +1,6 @@
 """
     Inirama is a python module that parses INI files.
 
-    .. == badges ==
     .. _badges:
     .. include:: ../README.rst
         :start-after: .. _badges:
@@ -27,7 +26,7 @@ except ImportError:
     from ordereddict import OrderedDict
 
 
-__version__ = '0.4.0'
+__version__ = '0.4.1'
 __project__ = 'Inirama'
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
