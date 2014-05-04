@@ -49,7 +49,7 @@ class MainTest(TestCase):
         self.assertEqual(parser['main']['test'], 'parse done')
         self.assertEqual(parser['other']['b'], 'Hello parse done! start')
 
-        test = dict(parser.default)
+        test = dict(parser.default.items())
         self.assertTrue('parse' in test['foo'])
 
     def test_write(self):
