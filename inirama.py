@@ -19,7 +19,6 @@ from __future__ import unicode_literals, print_function
 import io
 import re
 import logging
-from collections import MutableMapping
 try:
     from collections import OrderedDict
 except ImportError:
@@ -67,7 +66,7 @@ except ImportError:
     iteritems = DictMixin.iteritems
 
 
-__version__ = "0.5.1"
+__version__ = "0.6.0"
 __project__ = "Inirama"
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
@@ -183,43 +182,20 @@ class INIScanner(Scanner):
 undefined = object()
 
 
-class Section(MutableMapping):
+class Section(OrderedDict):
 
     """ Representation of INI section. """
 
     def __init__(self, namespace, *args, **kwargs):
         super(Section, self).__init__(*args, **kwargs)
         self.namespace = namespace
-        self.__storage__ = dict()
 
     def __setitem__(self, name, value):
         value = str(value)
         if value.isdigit():
             value = int(value)
 
-        self.__storage__[name] = value
-
-    def __getitem__(self, name):
-        return self.__storage__[name]
-
-    def __delitem__(self, name):
-        del self.__storage__[name]
-
-    def __len__(self):
-        return len(self.__storage__)
-
-    def __iter__(self):
-        return iter(self.__storage__)
-
-    def __repr__(self):
-        return "<{0} {1}>".format(self.__class__.__name__, str(dict(self)))
-
-    def iteritems(self):
-        """ Impletment iteritems. """
-        for key in self.__storage__.keys():
-            yield key, self[key]
-
-    items = lambda s: list(s.iteritems())
+        super(Section, self).__setitem__(name, value)
 
 
 class InterpolationSection(Section):
@@ -258,6 +234,12 @@ class InterpolationSection(Section):
                 NS_LOGGER.error(message)
                 raise ValueError(message)
         return value
+
+    def items(self):
+        """ Iterate self items. """
+
+        for key in self:
+            yield key, self[key]
 
 
 class Namespace(object):
@@ -406,4 +388,4 @@ class InterpolationNamespace(Namespace):
 
     section_type = InterpolationSection
 
-# lint_ignore=W0201,R0924,F0401
+# pylama:ignore=W0201,W0231,W0212
