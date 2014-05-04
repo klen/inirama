@@ -20,12 +20,16 @@ class MainTest(TestCase):
         self.assertEqual(parser['other']['long'], 'long value')
         self.assertEqual(parser['other']['safe_value'], 'c:\\\\test\\')
         self.assertEqual(parser['other']['b'], '[test]')
+        self.assertEqual(parser['other']['number'], 123)
 
         self.assertTrue('other' in parser)
         self.assertFalse('another' in parser)
 
         parser['main']['test'] = 123
-        self.assertEqual(parser['main']['test'], '123')
+        self.assertEqual(parser['main']['test'], 123)
+
+        parser['main']['test'] = '1223a'
+        self.assertEqual(parser['main']['test'], '1223a')
 
     def test_interpolation(self):
         parser = InterpolationNamespace()
