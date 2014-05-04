@@ -1,30 +1,37 @@
 #!/usr/bin/env python
 
-"""
-inirama
+""".
+
+Inirama
 -------
 
 inirama -- Parse INI files
 
 """
 import os
+import re
 
 from setuptools import setup
 
 
-def read(fname):
+def _read(fname):
     try:
         return open(os.path.join(os.path.dirname(__file__), fname)).read()
     except IOError:
         return ''
 
+_meta = _read('inirama.py')
+_version = re.search(r'^__version__\s*=\s*"(.*)"', _meta, re.M).group(1)
+_license = re.search(r'^__license__\s*=\s*"(.*)"', _meta, re.M).group(1)
+_project = re.search(r'^__project__\s*=\s*"(.*)"', _meta, re.M).group(1)
+
 
 setup(
-    name="Inirama",
-    version="0.4.1",
-    license="BSD",
-    description=read('DESCRIPTION'),
-    long_description=read('README.rst'),
+    name=_project,
+    version=_version,
+    license=_license,
+    description=_read('DESCRIPTION'),
+    long_description=_read('README.rst'),
     platforms=('Any'),
     keywords="config parser ini",
 
@@ -42,5 +49,5 @@ setup(
     ],
 
     py_modules=['inirama'],
-    test_suite = 'tests',
+    test_suite='tests',
 )
