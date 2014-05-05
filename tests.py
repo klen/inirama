@@ -36,6 +36,7 @@ class MainTest(TestCase):
         parser.default_section = 'main'
         parser.read('tests/vars.ini')
         self.assertEqual(parser['main']['var_test'], 'Hello world!')
+        self.assertEqual(dict(parser['main'].items(raw=True))['var_test'], 'Hello { test}!')
 
         parser['main']['foo'] = 'bar {var_test}'
         self.assertEqual(parser['main']['foo'], 'bar Hello world!')
