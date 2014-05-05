@@ -66,7 +66,7 @@ except ImportError:
     iteritems = DictMixin.iteritems
 
 
-__version__ = "0.6.0"
+__version__ = "0.6.1"
 __project__ = "Inirama"
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
@@ -222,24 +222,27 @@ class InterpolationSection(Section):
         except KeyError:
             return ''
 
-    def __getitem__(self, name):
+    def __getitem__(self, name, raw=False):
         value = super(InterpolationSection, self).__getitem__(name)
-        sample = undefined
-        while sample != value:
-            try:
-                sample, value = value, self.var_re.sub(
-                    self.__interpolate__, value)
-            except RuntimeError:
-                message = "Interpolation failed: {0}".format(name)
-                NS_LOGGER.error(message)
-                raise ValueError(message)
+        if not raw:
+            sample = undefined
+            while sample != value:
+                try:
+                    sample, value = value, self.var_re.sub(
+                        self.__interpolate__, value)
+                except RuntimeError:
+                    message = "Interpolation failed: {0}".format(name)
+                    NS_LOGGER.error(message)
+                    raise ValueError(message)
         return value
 
-    def items(self):
+    def iteritems(self, raw=False):
         """ Iterate self items. """
 
         for key in self:
-            yield key, self[key]
+            yield key, self.__getitem__(key, raw=raw)
+
+    items = iteritems
 
 
 class Namespace(object):
