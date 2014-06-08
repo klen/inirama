@@ -66,7 +66,7 @@ except ImportError:
     iteritems = DictMixin.iteritems
 
 
-__version__ = "0.6.1"
+__version__ = "0.7.0"
 __project__ = "Inirama"
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "BSD"
@@ -169,7 +169,9 @@ class INIScanner(Scanner):
         ('SECTION', re.compile(r'\[[^]]+\]')),
         ('IGNORE', re.compile(r'[ \r\t\n]+')),
         ('COMMENT', re.compile(r'[;#].*')),
-        ('KEY', re.compile(r'[\w_]+\s*[:=].*'))]
+        ('KEY', re.compile(r'[\w_]+\s*[:=].*')),
+        ('CONTINUATION', re.compile(r'.*'))
+    ]
 
     ignore = ['IGNORE']
 
@@ -341,6 +343,7 @@ class Namespace(object):
         scanner.scan()
 
         section = self.default_section
+        name = None
 
         for token in scanner.tokens:
             if token[0] == 'KEY':
@@ -352,6 +355,13 @@ class Namespace(object):
 
             elif token[0] == 'SECTION':
                 section = token[1].strip('[]')
+
+            elif token[0] == 'CONTINUATION':
+                if not name:
+                    raise SyntaxError(
+                        "SyntaxError[@char {0}: {1}]".format(
+                            token[2], "Bad continuation."))
+                self[section][name] += '\n' + token[1].strip()
 
     def __getitem__(self, name):
         """ Look name in self sections.
@@ -391,4 +401,4 @@ class InterpolationNamespace(Namespace):
 
     section_type = InterpolationSection
 
-# pylama:ignore=W0201,W0231,W0212
+# pylama:ignore=D,W02,E731,W0621

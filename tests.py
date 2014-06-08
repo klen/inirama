@@ -18,6 +18,7 @@ class MainTest(TestCase):
         self.assertEqual(parser['DEFAULT']['defkey'], 'defvalue')
         self.assertEqual(parser['other']['foo'], 'bar/zeta')
         self.assertEqual(parser['other']['long'], 'long value')
+        self.assertEqual(parser['other']['continuation'], 'one\ntwo\nthree')
         self.assertEqual(parser['other']['safe_value'], 'c:\\\\test\\')
         self.assertEqual(parser['other']['b'], '[test]')
         self.assertEqual(parser['other']['number'], 123)
