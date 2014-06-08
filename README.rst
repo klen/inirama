@@ -3,15 +3,14 @@
 
 .. _description:
 
-Inirama -- Simplest parser for INI files. Useful for project integration, one file
-and interface is pretty nice.
+Inirama -- Simplest parser for INI-style files.
 
 Features:
 
-    - One single file;
+    - One single module;
+    - No requirements;
     - Tiny interface;
     - Interpolation support;
-    - No dependencies from python modules;
 
 .. _badges:
 
@@ -38,7 +37,8 @@ Features:
 
 .. _contents:
 
-Docs are available at https://inirama.readthedocs.org/. Pull requests with documentation enhancements and/or fixes are awesome and most welcome.
+Docs are available at https://inirama.readthedocs.org/. Pull requests with
+documentation enhancements and/or fixes are awesome and most welcome.
 
 
 .. contents:: Contents:
@@ -57,7 +57,7 @@ Requirements
 Installation
 =============
 
-**Inirama** should be installed using pip: ::
+**Inirama** could be installed using pip: ::
 
     pip install inirama
 
