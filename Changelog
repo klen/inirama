@@ -1,7 +1,10 @@
+2014-06-15  horneds
+
+	* Supports hyphens
+
 2014-06-08  horneds
 
 	* Supports continuation values
-	* Version 0.7.0
 
 2014-05-05  horneds
 
