@@ -169,7 +169,7 @@ class INIScanner(Scanner):
         ('SECTION', re.compile(r'\[[^]]+\]')),
         ('IGNORE', re.compile(r'[ \r\t\n]+')),
         ('COMMENT', re.compile(r'[;#].*')),
-        ('KEY', re.compile(r'[\w_]+\s*[:=].*')),
+        ('KEY_VALUE', re.compile(r'[^=\s]+\s*[:=].*')),
         ('CONTINUATION', re.compile(r'.*'))
     ]
 
@@ -346,7 +346,7 @@ class Namespace(object):
         name = None
 
         for token in scanner.tokens:
-            if token[0] == 'KEY':
+            if token[0] == 'KEY_VALUE':
                 name, value = re.split('[=:]', token[1], 1)
                 name, value = name.strip(), value.strip()
                 if not update and name in self[section]:

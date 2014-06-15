@@ -10,7 +10,7 @@ Features:
     - One single module;
     - No requirements;
     - Tiny interface;
-    - Interpolation support;
+    - Supports variable interpolation;
 
 .. _badges:
 
