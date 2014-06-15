@@ -22,6 +22,9 @@ class MainTest(TestCase):
         self.assertEqual(parser['other']['safe_value'], 'c:\\\\test\\')
         self.assertEqual(parser['other']['b'], '[test]')
         self.assertEqual(parser['other']['number'], 123)
+        self.assertEqual(parser['other']['key-with-hyphen'], 'yes')
+        self.assertEqual(parser['other']['dot.name'], 'yes')
+        self.assertEqual(parser['other']['WRONG_case'], 'yes')
 
         self.assertTrue('other' in parser)
         self.assertFalse('another' in parser)
