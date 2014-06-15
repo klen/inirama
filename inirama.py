@@ -16,6 +16,13 @@
 """
 from __future__ import unicode_literals, print_function
 
+
+__version__ = "0.8.0"
+__project__ = "Inirama"
+__author__ = "Kirill Klenov <horneds@gmail.com>"
+__license__ = "BSD"
+
+
 import io
 import re
 import logging
@@ -64,12 +71,6 @@ except ImportError:
     iterkeys = DictMixin.iterkeys
     itervalues = DictMixin.itervalues
     iteritems = DictMixin.iteritems
-
-
-__version__ = "0.7.0"
-__project__ = "Inirama"
-__author__ = "Kirill Klenov <horneds@gmail.com>"
-__license__ = "BSD"
 
 
 NS_LOGGER = logging.getLogger('inirama')
