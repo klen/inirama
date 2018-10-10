@@ -22,11 +22,11 @@ Features:
     :target: https://coveralls.io/r/klen/inirama
     :alt: Coverals
 
-.. image:: https://pypip.in/v/Inirama/badge.png
+.. image:: https://img.shields.io/pypi/v/Inirama.svg
     :target: https://crate.io/packages/Inirama
     :alt: Version
 
-.. image:: https://pypip.in/d/Inirama/badge.png
+.. image:: https://img.shields.io/pypi/dm/Inirama.svg
     :target: https://crate.io/packages/Inirama
     :alt: Downloads
 
